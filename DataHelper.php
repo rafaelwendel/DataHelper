@@ -36,12 +36,17 @@ class DataHelper {
         
     }
     
-    public function get_data_atual($formato = 'd/m/Y')
+    public function get_data($formato = 'd/m/Y')
     {
         return date($formato);
     }
+	
+	public function get_data_texto()
+	{
+		return $this->get_dia_semana() . ', ' .  $this->get_dia_mes() . ' de ' . $this->get_mes('nome') . ' de ' . $this->get_ano();
+	}
     
-    public function get_dia_semana_atual()
+    public function get_dia_semana()
     {
         return $this->dias_semana[date('w')];
     }
@@ -50,8 +55,13 @@ class DataHelper {
     {
         return $this->dias_semana;
     }
+	
+	public function get_dia_mes()
+	{
+		return date('d');
+	}
     
-    public function get_mes_atual($formato = 'num')
+    public function get_mes($formato = 'num')
     {
         $mes = date('n');
         if ($formato == 'num')
@@ -80,13 +90,23 @@ class DataHelper {
         }
         return false;
     }
+	
+	public function get_meses($abrev = false)
+	{
+		$meses = array();
+		foreach ($this->meses as $chave => $mes)
+		{
+			$meses[$chave] = ($abrev == false ? $mes['nome'] : $mes['abrev']);
+		}
+		return $meses;
+	}
     
     protected function is_mes_valido($mes)
     {
         return ($mes >= 1 && $mes <= 12 ? true : false);
     }
     
-    public function get_ano_atual($digitos = 4)
+    public function get_ano($digitos = 4)
     {
         if ($digitos == 2)
         {
@@ -108,3 +128,6 @@ class DataHelper {
     }
         
 }
+
+$data = new DataHelper();
+echo $data->get_data_atual_texto();
