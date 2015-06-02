@@ -41,10 +41,10 @@ class DataHelper {
         return date($formato);
     }
 	
-	public function get_data_texto()
-	{
-		return $this->get_dia_semana() . ', ' .  $this->get_dia_mes() . ' de ' . $this->get_mes('nome') . ' de ' . $this->get_ano();
-	}
+    public function get_data_texto()
+    {
+	return $this->get_dia_semana() . ', ' .  $this->get_dia_mes() . ' de ' . $this->get_mes('nome') . ' de ' . $this->get_ano();
+    }
     
     public function get_dia_semana()
     {
@@ -128,6 +128,3 @@ class DataHelper {
     }
         
 }
-
-$data = new DataHelper();
-echo $data->get_data_atual_texto();
