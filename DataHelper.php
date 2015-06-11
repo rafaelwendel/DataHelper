@@ -6,7 +6,7 @@
  */
 class DataHelper {
     
-    protected $dias_semana = array(
+    protected static $dias_semana = array(
         0 => 'Domingo',
         1 => 'Segunda-feira',
         2 => 'Terca-feira',
@@ -16,7 +16,7 @@ class DataHelper {
         6 => 'Sabado'
     );
     
-    protected $meses = array(
+    protected static $meses = array(
          1 => array('nome' => 'Janeiro',   'abrev' => 'Jan'),
          2 => array('nome' => 'Fevereiro', 'abrev' => 'Fev'),
          3 => array('nome' => 'Marco',     'abrev' => 'Mar'),
@@ -31,37 +31,32 @@ class DataHelper {
         12 => array('nome' => 'Dezembro',  'abrev' => 'Dez')
     );
     
-    public function __construct() 
-    {
-        
-    }
-    
-    public function get_data($formato = 'd/m/Y')
+    public static function get_data($formato = 'd/m/Y')
     {
         return date($formato);
     }
 	
-    public function get_data_texto()
+    public static function get_data_texto()
     {
-	return $this->get_dia_semana() . ', ' .  $this->get_dia_mes() . ' de ' . $this->get_mes('nome') . ' de ' . $this->get_ano();
+	return self::get_dia_semana() . ', ' .  self::get_dia_mes() . ' de ' . self::get_mes('nome') . ' de ' . self::get_ano();
     }
     
-    public function get_dia_semana()
+    public static function get_dia_semana()
     {
-        return $this->dias_semana[date('w')];
+        return self::$dias_semana[date('w')];
     }
     
-    public function get_dias_semana()
+    public static function get_dias_semana()
     {
-        return $this->dias_semana;
+        return self::$dias_semana;
     }
 	
-	public function get_dia_mes()
-	{
-		return date('d');
-	}
+    public static function get_dia_mes()
+    {
+        return date('d');
+    }
     
-    public function get_mes($formato = 'num')
+    public static function get_mes($formato = 'num')
     {
         $mes = date('n');
         if ($formato == 'num')
@@ -70,11 +65,11 @@ class DataHelper {
         }
         else if ($formato == 'nome')
         {
-            return $this->meses[$mes]['nome'];
+            return self::$meses[$mes]['nome'];
         }
         else if ($formato == 'abrev')
         {
-            return $this->meses[$mes]['abrev'];
+            return self::$meses[$mes]['abrev'];
         }
         else
         {
@@ -82,31 +77,31 @@ class DataHelper {
         }
     }
     
-    public function get_mes_by_num($num, $formato = 'nome')
+    public static function get_mes_by_num($num, $formato = 'nome')
     {
-        if($this->is_mes_valido($num))
+        if(self::is_mes_valido($num))
         {
-            return ($formato === 'nome' ? $this->meses[$num]['nome'] : $this->meses[$num]['abrev']);
+            return ($formato === 'nome' ? self::$meses[$num]['nome'] : self::$meses[$num]['abrev']);
         }
         return false;
     }
 	
-	public function get_meses($abrev = false)
-	{
-		$meses = array();
-		foreach ($this->meses as $chave => $mes)
-		{
-			$meses[$chave] = ($abrev == false ? $mes['nome'] : $mes['abrev']);
-		}
-		return $meses;
-	}
+    public static function get_meses($abrev = false)
+    {
+        $meses = array();
+        foreach (self::meses as $chave => $mes)
+        {
+                $meses[$chave] = ($abrev == false ? $mes['nome'] : $mes['abrev']);
+        }
+        return $meses;
+    }
     
-    protected function is_mes_valido($mes)
+    protected static function is_mes_valido($mes)
     {
         return ($mes >= 1 && $mes <= 12 ? true : false);
     }
     
-    public function get_ano($digitos = 4)
+    public static function get_ano($digitos = 4)
     {
         if ($digitos == 2)
         {
@@ -122,7 +117,7 @@ class DataHelper {
         }
     }
     
-    public function is_bissexto()
+    public static function is_bissexto()
     {
         return (date('L') === 1 ? true : false);
     }
