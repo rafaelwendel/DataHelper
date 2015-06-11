@@ -187,14 +187,26 @@ class DataHelper {
     }
     
     /**
-     * Verifica se o ano atual é bissexto (true) ou não (false)
+     * Verifica se o ano é bissexto (true) ou não (false)
      * 
      * @access public
+     * @param Mixed $ano O ano atual '' ou um ano com 4 digitos
      * @return boolean
     */
-    public static function is_bissexto()
+    public static function is_bissexto($ano = '')
     {
-        return (date('L') === 1 ? true : false);
+        if($ano == '' || ! is_numeric($ano) || strlen($ano) != 4)
+        {
+            return (date('L') === 1 ? true : false);
+        }
+        else
+        {
+            if ($ano % 400 == 0 || ($ano % 4 == 0 && $ano % 100 != 0))
+            {
+                    return true;
+            }
+        }
+        return false;
     }
         
 }
