@@ -2,7 +2,9 @@
 /**
  * Classe que fornece alguns recursos interessantes de Data (Em pt-BR)
  *
- * @author Rafael Wendel Pinheiro
+ * @author Rafael Wendel Pinheiro (http://www.rafaelwendel.com)
+ * @version 1.0
+ * @link https://github.com/rafaelwendel/DataHelper/
  */
 class DataHelper {
     
@@ -31,31 +33,69 @@ class DataHelper {
         12 => array('nome' => 'Dezembro',  'abrev' => 'Dez')
     );
     
+    /**
+     * Retorna a data atual
+     * 
+     * @access public
+     * @param String $formato Formato da data
+     * @return String
+    */
     public static function get_data($formato = 'd/m/Y')
     {
         return date($formato);
     }
 	
+    /**
+     * Retorna a data atual em formato de texto (Ex: Domingo, 1 de Janeiro de 1990)
+     * 
+     * @access public
+     * @return String
+    */
     public static function get_data_texto()
     {
 	return self::get_dia_semana() . ', ' .  self::get_dia_mes() . ' de ' . self::get_mes('nome') . ' de ' . self::get_ano();
     }
     
+    /**
+     * Retorna o dia da semana em formato de texto (Ex: Segunda-feira)
+     * 
+     * @access public
+     * @return String
+    */
     public static function get_dia_semana()
     {
         return self::$dias_semana[date('w')];
     }
     
+    /**
+     * Retorna um array com todos os dias da semana (De 0 => Domingo até 7 => Sabado)
+     * 
+     * @access public
+     * @return array
+    */
     public static function get_dias_semana()
     {
         return self::$dias_semana;
     }
-	
+    
+    /**
+     * Retorna o dia atual do mes
+     * 
+     * @access public
+     * @return String
+    */
     public static function get_dia_mes()
     {
         return date('d');
     }
     
+    /**
+     * Retorna o mes atual
+     * 
+     * @access public
+     * @param String $formato Formato do mês ('num', 'nome' ou 'abrev')
+     * @return String
+    */
     public static function get_mes($formato = 'num')
     {
         $mes = date('n');
@@ -77,6 +117,14 @@ class DataHelper {
         }
     }
     
+    /**
+     * Retorna um determinado mes pelo numero
+     * 
+     * @access public
+     * @param int $num O mes desejado
+     * @param String $formato Formato do mes ('nome' ou 'abrev')
+     * @return String
+    */
     public static function get_mes_by_num($num, $formato = 'nome')
     {
         if(self::is_mes_valido($num))
@@ -85,7 +133,14 @@ class DataHelper {
         }
         return false;
     }
-	
+    
+    /**
+     * Retorna um array com todos os meses do ano (De 1 => Janeiro até 12 => Dezembro)
+     * 
+     * @access public
+     * @param boolean $abrev (true) abreviado ou (false) não abreviado
+     * @return array
+    */
     public static function get_meses($abrev = false)
     {
         $meses = array();
@@ -96,11 +151,25 @@ class DataHelper {
         return $meses;
     }
     
+    /**
+     * Valida um mês de acordo com o numero
+     * 
+     * @access protected
+     * @param int $mes O mes em numero
+     * @return boolean
+    */
     protected static function is_mes_valido($mes)
     {
         return ($mes >= 1 && $mes <= 12 ? true : false);
     }
     
+    /**
+     * Retorna o ano atual
+     * 
+     * @access public
+     * @param int $digitos O ano em 2 ou 4 digitos
+     * @return String
+    */
     public static function get_ano($digitos = 4)
     {
         if ($digitos == 2)
@@ -117,6 +186,12 @@ class DataHelper {
         }
     }
     
+    /**
+     * Verifica se o ano atual é bissexto (true) ou não (false)
+     * 
+     * @access public
+     * @return boolean
+    */
     public static function is_bissexto()
     {
         return (date('L') === 1 ? true : false);
