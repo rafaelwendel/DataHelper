@@ -68,7 +68,7 @@ class DataHelper {
     }
     
     /**
-     * Retorna um array com todos os dias da semana (De 0 => Domingo até 7 => Sabado)
+     * Retorna um array com todos os dias da semana (De 0 => Domingo até 6 => Sabado)
      * 
      * @access public
      * @return array
